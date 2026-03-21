@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PatienInsertRequest;
 use App\Interfaces\PatientInterface;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -38,32 +39,28 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Patient $patient)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return response()->json($patient);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PatienInsertRequest $request, Patient $patient)
     {
-        //
+        $update = $this->patient_repository->update($patient, $request->validated());
+
+        return response()->json($update);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Patient $patient)
     {
-        //
+        $delete = $this->patient_repository->destroy($patient);
+
+        return response()->json($delete);
     }
 }
