@@ -5,11 +5,11 @@ namespace App\Models;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class MedicalSession extends Model
 {
     use BelongsToUser;
 
-    protected $table = 'sessions';
+    protected $table = 'medical_sessions';
     protected $fillable = [
         'patient_id',
         'session_date',

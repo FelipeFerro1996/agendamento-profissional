@@ -2,34 +2,34 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\SessionInterface;
-use App\Models\Session;
+use App\Interfaces\MedicalSessionInterface;
+use App\Models\MedicalSession;
 use Throwable;
 
-class SessionRepository implements SessionInterface
+class MedicalSessionRepository implements MedicalSessionInterface
 {
 
     public function index(array $busca, bool $nao_paginar = false){
 
-        $sessions = new Session();
+        $medical_sessions = new MedicalSession();
 
         if($nao_paginar){
-            return $sessions->get();
+            return $medical_sessions->get();
         }
 
-        return $sessions->paginate(10);
+        return $medical_sessions->paginate(10);
     }
 
     public function store(array $dados): array
     {
         try{
 
-            $session = Session::create($dados);
+            $medical_session = MedicalSession::create($dados);
             
             return [
                 'success' => true,
                 'message' => 'Cadastrado com sucesso',
-                'dados' => $session
+                'dados' => $medical_session
             ];
 
         }catch(Throwable $e){
@@ -43,16 +43,16 @@ class SessionRepository implements SessionInterface
     }
 
 
-    public function update(Session $session, array $dados): array
+    public function update(MedicalSession $medical_session, array $dados): array
     {
         try{
 
-            $session->update($dados);
+            $medical_session->update($dados);
             
             return [
                 'success' => true,
                 'message' => 'Atualizado com sucesso',
-                'dados' => $session
+                'dados' => $medical_session
             ];
 
         }catch(Throwable $e){
@@ -65,11 +65,11 @@ class SessionRepository implements SessionInterface
         }
     }
 
-    public function destroy(Session $session): array
+    public function destroy(MedicalSession $medical_session): array
     {
         try{
 
-            $session->delete();
+            $medical_session->delete();
             
             return [
                 'success' => true,

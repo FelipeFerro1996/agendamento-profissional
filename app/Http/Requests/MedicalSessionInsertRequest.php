@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class SessionInsertRequest extends FormRequest
+class MedicalSessionInsertRequest extends FormRequest
 {
     /**
      * Regras de validação aplicadas à requisição.
@@ -13,7 +14,12 @@ class SessionInsertRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_id'   => ['required', 'exists:patients,id'],
+            'patient_id'   => [
+                'required', 
+                Rule::exists('patients', 'id')->where(function ($query){
+                    $query->where('user_id', Auth::id());
+                })
+            ],
             'session_date' => ['required', 'date', 'after_or_equal:today'],
             'session_time' => ['required', 'date_format:H:i'],
             'price'        => ['nullable', 'numeric', 'min:0'],

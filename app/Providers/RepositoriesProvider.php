@@ -3,16 +3,16 @@
 namespace App\Providers;
 
 use App\Interfaces\PatientInterface;
-use App\Interfaces\SessionInterface;
+use App\Interfaces\MedicalSessionInterface;
+use App\Repositories\MedicalSessionRepository;
 use App\Repositories\PatientRepository;
-use App\Repositories\SessionRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoriesProvider extends ServiceProvider
 {
     public array $bindings = [
         PatientInterface::class => PatientRepository::class,
-        SessionInterface::class => SessionRepository::class
+        MedicalSessionInterface::class => MedicalSessionRepository::class
     ];
     
 }
