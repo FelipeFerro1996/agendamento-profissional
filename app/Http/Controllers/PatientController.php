@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PatienInsertRequest;
 use App\Interfaces\PatientInterface;
 use App\Models\Patient;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
+    use ApiResponse;
     
     public function __construct(
         protected PatientInterface $patient_repository
@@ -23,7 +25,7 @@ class PatientController extends Controller
 
         $patients = $this->patient_repository->index();
 
-        return response()->json($patients);
+        return $this->success($patients);
     }
 
     /**
@@ -33,7 +35,7 @@ class PatientController extends Controller
     {
         $response = $this->patient_repository->store($request->validated());
 
-        return response()->json($response);
+        return $this->success($response, 'Paciente incluído com sucesso', 201);
     }
 
     /**
@@ -41,7 +43,7 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        return response()->json($patient);
+        return $this->success($patient, 'Paciente');
     }
 
     /**
@@ -51,7 +53,7 @@ class PatientController extends Controller
     {
         $update = $this->patient_repository->update($patient, $request->validated());
 
-        return response()->json($update);
+        return $this->success($update, 'Paciente incluído com sucesso', 201);;
     }
 
     /**
@@ -59,8 +61,8 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        $delete = $this->patient_repository->destroy($patient);
+        $this->patient_repository->destroy($patient);
 
-        return response()->json($delete);
+        return $this->success(message:'Paciente excluído com sucesso');
     }
 }

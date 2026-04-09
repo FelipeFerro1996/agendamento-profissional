@@ -13,6 +13,8 @@ class Patient extends Model
     protected $table = 'patients';
     protected $fillable = ['name', 'phone', 'email', 'birth_date', 'notes', 'cpf'];
     protected $guarded = ['cpf_encrypted', 'cpf_hash', 'updated_at', 'created_at'];
+    protected $visible = ['name', 'phone', 'email', 'birth_date', 'notes', 'cpf'];
+    protected $appends = ['cpf'];
 
     // setter CPF
     public function setCpfAttribute($value)
