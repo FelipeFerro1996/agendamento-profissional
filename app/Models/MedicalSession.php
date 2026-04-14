@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Traits\BelongsToUser;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class MedicalSession extends Model
 {
     use BelongsToUser;
+    use HasFactory;
 
     protected $table = 'medical_sessions';
     protected $fillable = [
