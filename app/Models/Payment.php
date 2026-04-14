@@ -19,6 +19,6 @@ class Payment extends Model
         'status',
     ];
 
-    protected $visible = ['reference_month', 'total_amount'];
+    protected $visible = ['reference_month', 'total_amount', 'total_amount', 'paid_amount','due_date','status'];
 
 }

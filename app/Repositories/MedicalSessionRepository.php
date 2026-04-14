@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Interfaces\MedicalSessionInterface;
 use App\Models\MedicalSession;
-use Throwable;
 
 class MedicalSessionRepository implements MedicalSessionInterface
 {
@@ -20,70 +19,21 @@ class MedicalSessionRepository implements MedicalSessionInterface
         return $medical_sessions->paginate(10);
     }
 
-    public function store(array $dados): array
+    public function store(array $dados): MedicalSession
     {
-        try{
-
-            $medical_session = MedicalSession::create($dados);
-            
-            return [
-                'success' => true,
-                'message' => 'Cadastrado com sucesso',
-                'dados' => $medical_session
-            ];
-
-        }catch(Throwable $e){
-
-            return [
-                'success' => false,
-                'message' => 'Erro ao cadastrar o Sessão',
-                'error' => $e->getMessage()
-            ];
-        }
+        return MedicalSession::create($dados);
     }
 
 
-    public function update(MedicalSession $medical_session, array $dados): array
+    public function update(MedicalSession $medical_session, array $dados): MedicalSession
     {
-        try{
-
-            $medical_session->update($dados);
-            
-            return [
-                'success' => true,
-                'message' => 'Atualizado com sucesso',
-                'dados' => $medical_session
-            ];
-
-        }catch(Throwable $e){
-
-            return [
-                'success' => false,
-                'message' => 'Erro ao alterar o Sessão',
-                'error' => $e->getMessage()
-            ];
-        }
+        $medical_session->update($dados);
+        return $medical_session;
     }
 
-    public function destroy(MedicalSession $medical_session): array
+    public function destroy(MedicalSession $medical_session): bool
     {
-        try{
-
-            $medical_session->delete();
-            
-            return [
-                'success' => true,
-                'message' => 'Excluído com sucesso'
-            ];
-
-        }catch(Throwable $e){
-
-            return [
-                'success' => false,
-                'message' => 'Erro ao excluir o Sessão',
-                'error' => $e->getMessage()
-            ];
-        }
+        return $medical_session->delete();
     }
 
 }

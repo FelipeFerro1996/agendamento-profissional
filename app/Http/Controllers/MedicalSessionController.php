@@ -8,10 +8,13 @@ use App\Http\Requests\SessionInsertRequest;
 use App\Interfaces\MedicalSessionInterface;
 use App\Models\MedicalSession;
 use App\Models\Session;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class MedicalSessionController extends Controller
 {
+
+    use ApiResponse;
 
     public function __construct(
         protected MedicalSessionInterface $medical_session_repository
@@ -25,7 +28,7 @@ class MedicalSessionController extends Controller
     {
         $medical_sessions = $this->medical_session_repository->index($request->all());
 
-        return response()->json($medical_sessions);
+        return $this->success(data:$medical_sessions);
     }
 
     /**
@@ -35,7 +38,7 @@ class MedicalSessionController extends Controller
     {
         $response = $this->medical_session_repository->store($request->validated());
 
-        return response()->json($response);
+        return $this->success(message:'Sessão cadastrada com sucesso', data:$response);
     }
 
     /**
@@ -43,7 +46,7 @@ class MedicalSessionController extends Controller
      */
     public function show(MedicalSession $medical_session)
     {
-        return response()->json($medical_session);
+        return $this->success(data:$medical_session);
     }
 
     /**
@@ -53,7 +56,7 @@ class MedicalSessionController extends Controller
     {
         $response = $this->medical_session_repository->update($medical_session, $request->validated());
 
-        return response()->json($response);
+        return $this->success(message:'Sessão atualizada com sucesso', data:$response);
     }
 
     /**
@@ -61,8 +64,8 @@ class MedicalSessionController extends Controller
      */
     public function destroy(MedicalSession $medical_session)
     {
-        $response = $this->medical_session_repository->destroy($medical_session);
+        $this->medical_session_repository->destroy($medical_session);
         
-        return response()->json($response);
+        return $this->success(message:'Sessão excluído com sucesso');
     }
 }
