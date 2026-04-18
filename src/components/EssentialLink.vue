@@ -1,5 +1,10 @@
 <template>
-  <q-item clickable tag="a" target="_blank" :href="link">
+  <q-item
+    v-if="to"
+    clickable
+    :to="to"
+    tag="router-link"
+  >
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
@@ -13,15 +18,15 @@
 
 <script setup lang="ts">
 export interface EssentialLinkProps {
-  title: string;
-  caption?: string;
-  link?: string;
-  icon?: string;
+  title: string
+  caption?: string
+  link?: string // externo
+  to?: string   // interno (router)
+  icon?: string
 }
 
 withDefaults(defineProps<EssentialLinkProps>(), {
   caption: '',
-  link: '#',
   icon: '',
 });
 </script>
