@@ -6,6 +6,7 @@ import {
   createWebHistory,
 } from 'vue-router';
 import routes from './routes';
+import { useAuth } from 'src/composables/useAuth';
 
 /*
  * If not building with SSR mode, you can
@@ -32,6 +33,29 @@ export default defineRouter((/* { store, ssrContext } */) => {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
+  
+  Router.beforeEach(async (to) => {
+    const { user, fetchUser } = useAuth()
+
+    if (to.path !== '/login' && !user.value) {
+      await fetchUser()
+    }
+
+    const requiresAuth = to.matched.some(r => r.meta.requiresAuth)
+
+    if (requiresAuth && !user.value) {
+      return {
+        path: '/login',
+        query: { redirect: to.fullPath }
+      }
+    }
+
+    if (to.path === '/login' && user.value) {
+      return '/'
+    }
+
+    return true
+  })
 
   return Router;
 });
