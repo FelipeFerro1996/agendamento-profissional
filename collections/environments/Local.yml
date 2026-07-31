@@ -1,0 +1,6 @@
+name: Local
+variables:
+  - name: url
+    value: localhost/api/
+  - name: TOKEN
+    value: 7|BLib5dswyqhEQKoBH25ir6zWoZeGhXdX9yJksjrr1094a90f
