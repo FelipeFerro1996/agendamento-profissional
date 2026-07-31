@@ -15,7 +15,7 @@ class Patient extends Model
     protected $table = 'patients';
     protected $fillable = ['name', 'phone', 'email', 'birth_date', 'notes', 'cpf'];
     protected $guarded = ['cpf_encrypted', 'cpf_hash', 'updated_at', 'created_at'];
-    protected $visible = ['name', 'phone', 'email', 'birth_date', 'notes', 'cpf'];
+    protected $visible = ['name', 'phone', 'email', 'birth_date', 'notes', 'cpf', 'id'];
     protected $appends = ['cpf'];
 
     // setter CPF
@@ -28,6 +28,9 @@ class Patient extends Model
     // getter CPF
     public function getCpfAttribute()
     {
+        if (blank($this->cpf_encrypted)) {
+            return null;
+        }
         return Crypt::decryptString($this->cpf_encrypted);
     }
     

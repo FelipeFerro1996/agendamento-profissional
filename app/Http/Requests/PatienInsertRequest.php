@@ -29,7 +29,7 @@ class PatienInsertRequest extends FormRequest
             'email'      => ['nullable', 'email', 'max:100'],
             'birth_date' => ['nullable', 'date', 'before:today', 'date_format:Y-m-d'], 
             'notes'      => ['nullable', 'string', 'max:2000'],
-            'cpf'        => ['nullable', new CpfRule]
+            'cpf'        => ['nullable', 'required', new CpfRule($this->route('patient'))]
         ];
     }
 
