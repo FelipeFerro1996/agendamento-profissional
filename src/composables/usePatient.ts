@@ -11,10 +11,10 @@ export function usePatient() {
 
     const endpoint = '/patients'
 
-    const list = (page = 1) => get<ApiResponse<Pagination<Patient>>>(`${endpoint}?${page}`)
+    const list = (page = 1) => get<ApiResponse<Pagination<Patient>>>(`${endpoint}?page=${page}`)
 
     const find = (id: number) => 
-        get<Patient>(`${endpoint}/${id}`)
+        get<ApiResponse<Patient>>(`${endpoint}/${id}`)
 
     const create = (data: Partial<Patient>) => 
         post<Patient, Partial<Patient>>(endpoint, data)
@@ -25,7 +25,7 @@ export function usePatient() {
     const remove = (id: number) => 
             del<void>(`${endpoint}/${id}`)
 
-    const fetchPatients = async (page = 0) => {
+    const fetchPatients = async (page = 1) => {
         loading.value = true
         try {
             const response = await list(page)
