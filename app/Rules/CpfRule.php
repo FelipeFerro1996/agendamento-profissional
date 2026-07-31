@@ -2,11 +2,18 @@
 
 namespace App\Rules;
 
+use App\Models\Patient;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class CpfRule implements ValidationRule
 {
+
+    public function __construct(
+        public ?Patient $patient = NULL 
+    )
+    {}
+
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $cpf = preg_replace('/[^0-9]/', '', $value);
@@ -28,5 +35,17 @@ class CpfRule implements ValidationRule
                 return;
             }
         }
+
+        // Verifica duplicidade
+        $query = Patient::where('cpf_hash', hash('sha256', $cpf));
+
+        if (!empty($this->patient->id)) {
+            $query->where('id', '<>', $this->patient->id);
+        }
+
+        if ($query->exists()) {
+            $fail('Este CPF já está cadastrado.');
+        }
+
     }
 }

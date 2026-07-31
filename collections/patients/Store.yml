@@ -1,0 +1,25 @@
+info:
+  name: Store
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{url}}patients"
+  body:
+    type: json
+    data: |-
+      {
+        "name":"Testando com mesmo cpf",
+        "phone": "14996667979",
+        "cpf": "45520243883"
+      }
+  auth:
+    type: bearer
+    token: "{{TOKEN}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
