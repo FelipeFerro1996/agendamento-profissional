@@ -5,7 +5,11 @@ info:
 
 http:
   method: GET
-  url: "{{url}}medical_sessions"
+  url: "{{url}}medical_sessions?session_date=2026-08-04"
+  params:
+    - name: session_date
+      value: 2026-08-04
+      type: query
   auth: inherit
 
 settings:
