@@ -33,7 +33,8 @@ class MedicalSession extends Model
         'paid',
         'paid_at',
         'notes',
-        'data_formatada'
+        'data_formatada',
+        'patient'
     ];
 
     protected $appends = [
@@ -42,5 +43,9 @@ class MedicalSession extends Model
 
     public function getDataFormatadaAttribute(){
         return Carbon::parse($this->session_date)->format('d/m/Y');
+    }
+
+    public function patient(){
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 }
