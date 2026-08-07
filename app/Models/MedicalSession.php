@@ -39,6 +39,18 @@ class MedicalSession extends Model
         'patient'
     ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'paid' => 'boolean',
+        ];
+    }
+
     protected $appends = [
         'data_formatada'
     ];
