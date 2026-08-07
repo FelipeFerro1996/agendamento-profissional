@@ -26,6 +26,7 @@ class MedicalSession extends Model
     ];
 
     protected $visible = [
+        'id',
         'patient_id',
         'session_date',
         'session_time',

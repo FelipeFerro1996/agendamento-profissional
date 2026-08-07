@@ -46,6 +46,7 @@ class MedicalSessionController extends Controller
      */
     public function show(MedicalSession $medical_session)
     {
+        $medical_session->load(['patient']);
         return $this->success(data:$medical_session);
     }
 

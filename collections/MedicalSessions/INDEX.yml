@@ -5,10 +5,13 @@ info:
 
 http:
   method: GET
-  url: "{{url}}medical_sessions?session_date=2026-08-04"
+  url: "{{url}}medical_sessions?session_date=2026-08-04&status_not_in=canceled"
   params:
     - name: session_date
       value: 2026-08-04
+      type: query
+    - name: status_not_in
+      value: canceled
       type: query
   auth: inherit
 
