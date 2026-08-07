@@ -6,7 +6,7 @@ use App\Models\Patient;
 
 interface PatientInterface
 {
-    public function index();
+    public function index(array $busca = []);
 
     public function store(array $dados): Patient;
 

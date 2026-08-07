@@ -5,13 +5,19 @@ info:
 
 http:
   method: GET
-  url: "{{url}}patients?page=3"
+  url: "{{url}}patients?page=1&name=Feli&nao_paginar=true"
   headers:
     - name: Accept
       value: application/json
   params:
     - name: page
-      value: "3"
+      value: "1"
+      type: query
+    - name: name
+      value: Feli
+      type: query
+    - name: nao_paginar
+      value: "true"
       type: query
   auth:
     type: bearer

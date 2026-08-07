@@ -8,8 +8,18 @@ use App\Models\Patient;
 class PatientRepository implements PatientInterface
 {
 
-    public function index(){
-        return Patient::paginate(10);
+    public function index(array $busca = []){
+        $patients = new Patient();
+
+        if(!empty($busca['name'])){
+            $patients = $patients->where('name', 'like', "%{$busca['name']}%");
+        }
+
+        if(!empty($busca['nao_paginar'])){
+            return $patients->get();
+        }
+
+        return $patients->paginate(10);
     }
 
     public function store(array $dados): Patient

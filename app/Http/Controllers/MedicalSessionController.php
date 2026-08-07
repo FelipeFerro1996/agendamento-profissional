@@ -26,7 +26,7 @@ class MedicalSessionController extends Controller
      */
     public function index(Request $request)
     {
-        $medical_sessions = $this->medical_session_repository->index($request->all());
+        $medical_sessions = $this->medical_session_repository->index($request->all(), nao_paginar:true);
 
         return $this->success(data:$medical_sessions);
     }
@@ -46,6 +46,7 @@ class MedicalSessionController extends Controller
      */
     public function show(MedicalSession $medical_session)
     {
+        $medical_session->load(['patient']);
         return $this->success(data:$medical_session);
     }
 

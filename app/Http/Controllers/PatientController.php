@@ -20,10 +20,10 @@ class PatientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $patients = $this->patient_repository->index();
+        $patients = $this->patient_repository->index($request->all());
 
         return $this->success($patients);
     }
