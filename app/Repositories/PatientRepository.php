@@ -15,6 +15,10 @@ class PatientRepository implements PatientInterface
             $patients = $patients->where('name', 'like', "%{$busca['name']}%");
         }
 
+        if(!empty($busca['birth_date'])){
+            $patients = $patients->where('birth_date', $busca['birth_date']);
+        }
+
         if(!empty($busca['nao_paginar'])){
             return $patients->get();
         }
